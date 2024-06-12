@@ -10,6 +10,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
+  // Reactive driven form 
   email = new FormControl("", [
     Validators.required,
     Validators.email
