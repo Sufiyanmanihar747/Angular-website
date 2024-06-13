@@ -1184,12 +1184,11 @@ video {
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxOTc0Mjh8MHwxfGFsbHwxfHx8fHx8fHwxNjI0MzgxMzc5&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
-  background-size: cover;
+  background-color: #f9f9f9;
 }
 
 section {
-  margin-top: 30px;
+  margin-top: 87px;
 }
 
 .placeholder\:text-gray-400::-moz-placeholder {

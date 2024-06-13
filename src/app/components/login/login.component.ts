@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  constructor(private authServices: AuthService) { }
 
   // Reactive driven form 
   email = new FormControl("", [
@@ -17,22 +19,22 @@ export class LoginComponent {
     Validators.email
   ])
 
-  password = new FormControl("",[
+  password = new FormControl("", [
     Validators.required,
     Validators.minLength(6)
   ])
 
   loginForm = new FormGroup({
-    email:this.email,
-    password:this.password
+    email: this.email,
+    password: this.password
   })
 
-  login(){
-    console.log(this.email.value)
-    console.log(this.password.value)
+  login() {
+    console.log(this.email.value, this.password.value)
+    this.authServices.loginUser(this.loginForm.value.email!, this.loginForm.value.password!)
   }
 
-  reset(){
+  reset() {
     this.loginForm.reset()
   }
 }

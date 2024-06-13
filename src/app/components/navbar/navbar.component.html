@@ -1,21 +1,10 @@
-<!-- <nav class="navbar">
-  <div class="navbar-container">
-    <a routerLink="/" routerLinkActive="active" class="navbar-logo">BrandName</a>
-    <ul class="navbar-menu">
-      <li><a routerLink="/" routerLinkActive="active">Home</a></li>
-      <li><a routerLink="/" routerLinkActive="active">About</a></li>
-      <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
-      <li><a routerLink="/signup" routerLinkActive="active">SignUp</a></li>
-    </ul>
-  </div>
-</nav> -->
-<nav class="bg-gray-800">
+<nav class="shadow-lg backdrop-blur-sm text-black-500" style="position: fixed;top: 0;width: 100vw;z-index: 100;">
   <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
     <div class="relative flex h-16 items-center justify-between">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
         <!-- Mobile menu button-->
         <button type="button"
-          class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+          class="relative inline-flex items-center justify-center rounded-md p-2  hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
           aria-controls="mobile-menu" aria-expanded="false">
           <span class="absolute -inset-0.5"></span>
           <span class="sr-only">Open main menu</span>
@@ -48,18 +37,18 @@
           <div class="flex space-x-4">
             <a routerLink="/" routerLinkActive="active"
               class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Home</a>
-            <a routerLink="/" routerLinkActive="active"
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
-            <a routerLink="/" routerLinkActive="active"
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
+            <a routerLink="/create" routerLinkActive="active"
+              class="rounded-md px-3 py-2 text-sm font-medium  hover:bg-gray-700 hover:text-white">Add Snippet</a>
+            <a routerLink="/show" routerLinkActive="active"
+              class="rounded-md px-3 py-2 text-sm font-medium  hover:bg-gray-700 hover:text-white">My Snippets</a>
             <a routerLink="/about" routerLinkActive="active"
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">About</a>
+              class="rounded-md px-3 py-2 text-sm font-medium  hover:bg-gray-700 hover:text-white">About</a>
           </div>
         </div>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         <button type="button"
-          class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+          class="relative rounded-full bg-white-800 p-1  hover:text-white hover:bg-gray-700 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
           <span class="absolute -inset-1.5"></span>
           <span class="sr-only">View notifications</span>
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -72,10 +61,15 @@
         <!-- Profile dropdown -->
         <div class="relative ml-3">
           <div>
+            @if (authServices.isAuthenticated()) {
+            <a (click)="authServices.logoutUser()"
+              class="rounded-md px-3 py-2 text-sm font-medium  hover:bg-gray-700 hover:text-white">Logout</a>
+            }@else{
             <a routerLink="/login" routerLinkActive="active"
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white bg-gray-900">Login</a>
+              class="rounded-md px-3 py-2 text-white text-sm font-medium  hover:bg-gray-700 hover:text-white bg-gray-900">Login</a>
             <a routerLink="/signup" routerLinkActive="active"
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Signup</a>
+              class="rounded-md px-3 py-2 text-sm font-medium  hover:bg-gray-700 hover:text-white">Signup</a>
+            }
           </div>
 
           <!-- <div
@@ -96,16 +90,16 @@
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class="sm:hidden" id="mobile-menu">
     <div class="space-y-1 px-2 pb-3 pt-2">
-      <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+      <!-- Current: "bg-gray-900 text-white", Default: " hover:bg-gray-700 hover:text-white" -->
       <a routerLink="/" routerLinkActive="active"
         class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
         aria-current="page">Dashboard</a>
       <a routerLink="/" routerLinkActive="active"
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
+        class="block rounded-md px-3 py-2 text-base font-medium  hover:bg-gray-700 hover:text-white">Team</a>
       <a routerLink="/" routerLinkActive="active"
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
+        class="block rounded-md px-3 py-2 text-base font-medium  hover:bg-gray-700 hover:text-white">Projects</a>
       <a routerLink="/" routerLinkActive="active"
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
+        class="block rounded-md px-3 py-2 text-base font-medium  hover:bg-gray-700 hover:text-white">Calendar</a>
     </div>
   </div>
 </nav>

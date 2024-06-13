@@ -1,10 +1,10 @@
 <section>
   <div class="container mx-auto">
-    <div class="flex min-h-full flex-col justify-center lg:px-8 shadow-lg backdrop-blur-sm bg-white/30">
+    <div class="flex min-h-full flex-col justify-center lg:px-8 py-8 shadow-2xl bg-white mx-auto" style="width: 35%;">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
           alt="Your Company">
-        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login to your account
         </h2>
       </div>
 
@@ -15,7 +15,7 @@
             <div class="mt-2">
               <input [formControl]="email" id="email" name="email" type="email" autocomplete="email" required
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              <p [hidden]="email.valid || email.untouched">This Email is not allowed</p>
+              <p [hidden]="email.valid || email.untouched" class="text-red-700">please enter correct email</p>
             </div>
           </div>
 
@@ -29,7 +29,6 @@
             <div class="mt-2">
               <input [formControl]="password" type="password"
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              <p [hidden]="password.valid || password.untouched">This password is not allowed</p>
             </div>
           </div>
 
@@ -39,8 +38,6 @@
               in</button>
           </div>
         </form>
-        <h4>email valid - {{email.valid}}</h4>
-        <h4>email untouched - {{email.untouched}}</h4>
         <p class="mt-10 text-center text-sm text-black-500">
           Don't have account?
           <a routerLink="/signup" routerLinkActive="active"
