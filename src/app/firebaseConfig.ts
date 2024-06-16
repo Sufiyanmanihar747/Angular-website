@@ -1,3 +1,4 @@
+
 export const firebaseConfig = {
   apiKey: "AIzaSyCeDD938jc9FpD_xYQZ38EkvzmGoxtnfMQ",
   authDomain: "codebin-ng-8de3c.firebaseapp.com",

@@ -27,8 +27,10 @@ export class CodeBinComponent {
   })
 
   save() {
-    this.dbService.createSnippet(this.binForm.value as Snippet);
-    console.log(this.binForm.value)
-    this.binForm.reset();
+    if (this.code && this.title) {
+      this.dbService.createSnippet(this.binForm.value as Snippet);
+      console.log(this.binForm.value)
+      this.binForm.reset();
+    }
   }
 }

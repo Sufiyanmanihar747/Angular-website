@@ -1,20 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DbService } from '../../services/db.service';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+
   constructor(private dbService: DbService) { }
-  items = []
-  ngOnInit() {  
-    this.dbService.getAllSnippet().then((data: any) => {
-      console.log(data)
-      this.items = data
-    });
+
+  items: any[] = []
+  ngOnInit() {
+    this.fetchSnippets();
   }
+
+  async fetchSnippets() {
+    try {
+      this.items = await this.dbService.getAllSnippet();
+      console.log(this.items);
+    } catch (error) {
+      console.error('Error fetching data', error);
+    }
+  }
+
 }
