@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, addDoc, getFirestore, getDocs, doc, getDoc, where, DocumentData, Query, QuerySnapshot, query, updateDoc, deleteField } from "firebase/firestore";
+import { collection, addDoc, getFirestore, getDocs, doc, getDoc, where, DocumentData, Query, QuerySnapshot, query, updateDoc, deleteField, deleteDoc } from "firebase/firestore";
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
@@ -20,7 +20,6 @@ export class DbService {
     try {
       const docRef = await addDoc(collection(this.db, "snippets"), { ...snippet, by: this.authServices.getUid() });
       console.log("Document written with ID: ", docRef.id);
-      this.router.navigate(['/'])
     } catch (e) {
       console.error("Error adding document: ", e);
       alert("error while creating")
@@ -69,6 +68,34 @@ export class DbService {
       }
     }
 
+  }
+
+  async deleteSnippet(snippetId: string) {
+    const snippetRef = doc(this.db, 'snippets', snippetId);
+    if (snippetRef) {
+      await deleteDoc(snippetRef);
+      this.router.navigate(['/mysnippet'])
+    } else {
+      alert("snippet not found")
+    }
+  }
+
+  async editSnippet(snippetId:string){
+    const docRef = doc(this.db, "snippets", snippetId);
+    const snippet = await getDoc(docRef);
+    console.log(snippet)
+
+    if (snippet.exists()) {
+      console.log("Document data:", snippet.data());
+      return snippet.data()
+    } else {
+      console.log("No such document!");
+      return {
+        id: 1,
+        title: "not found",
+        code: "not found"
+      }
+    }
   }
 
 }

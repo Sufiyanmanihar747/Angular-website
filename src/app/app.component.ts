@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from './firebaseConfig';
+import { ToastComponent } from './components/toast/toast.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent,ToastComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

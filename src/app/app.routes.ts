@@ -14,6 +14,6 @@ export const routes: Routes = [
   { path: 'create', component: CodeBinComponent, canActivate: [authGuard] },
   { path: 'about', loadComponent: () => import('./components/about/about.component').then(mod => mod.AboutComponent) },
   // { path: 'snippet', component: ShowComponent },
-  { path: 'mysnippet', component: MysnippetComponent },
+  { path: 'mysnippet', component: MysnippetComponent, canActivate: [authGuard] },
   { path: '**', component: NotFoundComponent }
 ]; 

@@ -54,7 +54,7 @@ export class AuthService {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user)
-        this.router.navigate(['/create'])
+        this.router.navigate(['/mysnippet'])
 
       })
       .catch((error) => {
