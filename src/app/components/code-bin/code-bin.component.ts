@@ -5,11 +5,11 @@ import { Snippet } from '../../../models/Snippet';
 import { ToastComponent } from '../toast/toast.component';
 
 @Component({
-    selector: 'app-code-bin',
-    standalone: true,
-    templateUrl: './code-bin.component.html',
-    styleUrl: './code-bin.component.css',
-    imports: [ReactiveFormsModule, ToastComponent]
+  selector: 'app-code-bin',
+  standalone: true,
+  templateUrl: './code-bin.component.html',
+  styleUrl: './code-bin.component.css',
+  imports: [ReactiveFormsModule, ToastComponent]
 })
 export class CodeBinComponent {
   constructor(private dbService: DbService) { }
@@ -30,10 +30,13 @@ export class CodeBinComponent {
   })
 
   save() {
-    if (this.code && this.title) {
+    if (this.binForm.valid) {
       this.dbService.createSnippet(this.binForm.value as Snippet);
       this.toast.showToast('Your Snippet added successfully!');
       this.binForm.reset();
-    } 
+    }
+    else {
+      this.toast.showToast('Title and snippet required!', "bg-red-500");
+    }
   }
 }

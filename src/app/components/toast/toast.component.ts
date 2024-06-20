@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div [ngClass]="{ 'visible': show, 'hidden': !show }" class="fixed top-20 right-4 bg-green-500 text-white p-4 rounded shadow">
+    <div [ngClass]="{ 'visible': show, 'hidden': !show }" class="fixed top-20 right-4 text-white p-4 rounded shadow" [class]="bgColor">
       {{ message }}
     </div>
   `,
@@ -15,9 +15,10 @@ export class ToastComponent {
 
   @Input() message: string = '';
   show: boolean = false;
-
-  showToast(message: string) {
+  bgColor: string = 'bg-green-500';
+  showToast(message: string, bgColor?: string) {
     this.message = message;
+    this.bgColor = bgColor ? bgColor : 'bg-green-500';
     this.show = true;
     setTimeout(() => {
       this.show = false;

@@ -17,19 +17,48 @@
     </div>
     <div *ngIf="!loading && items.length === 0" class="text-center p-4">No snippets found!</div>
 
-    <div class="grid grid-cols-2 md:grid-cols-auto lg:grid-cols-auto gap-4 ">
+    <div class="grid sm:grid-cols-1 md:grid-cols-auto lg:grid-cols-2 gap-4 ">
       @for (item of items; track item.id) {
       <div class="grid-flow-row-dense p-4 border rounded shadow code-container">
         <div class="flex">
           <h3 class="text-lg font-bold mb-2 mr-auto">{{ item.title }}</h3>
-          <button type="button" (click)="editSnippet(item.id)"
-            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Edit</button>
+          <button type="button" (click)="editSnippet(item)"
+            class="text-white bg-green-500 hover:-translate-y-1 transform transition duration-200 hover:shadow-md rounded-md font-medium text-sm px-5 py-2.5 text-center me-2 mb-2">Edit</button>
+
           <button type="button" (click)="deleteSnippet(item.id)"
-            class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Remove</button>
+            class="text-white bg-red-500 hover:-translate-y-1 transform transition duration-200 hover:shadow-md rounded-md font-medium text-sm px-5 py-2.5 text-center me-2 mb-2">Remove</button>
         </div>
         <pre class="bg-gray-100 p-2 rounded code-container">{{ item.code }}</pre>
       </div>
       }
     </div>
+
+    <!-- Edit Snippet Modal -->
+    <div *ngIf="editingSnippet" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+      <div class="bg-white p-6 rounded shadow-lg max-w-md w-full">
+        <h2 class="text-2xl mb-4">Edit Snippet</h2>
+        <form (ngSubmit)="updateSnippet()">
+          <div class="mb-4">
+            <label for="title" class="block text-gray-700 font-bold mb-2">Title:</label>
+            <input type="text" id="title" [(ngModel)]="currentSnippet.title" required name="title"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          <div class="mb-4">
+            <label for="code" class="block text-gray-700 font-bold mb-2">Code:</label>
+            <textarea id="code" [(ngModel)]="currentSnippet.code" required name="code"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              rows="10"></textarea>
+          </div>
+          <div *ngIf="formError" class="mb-4 text-red-600">{{ formError }}</div>
+          <div class="flex justify-end">
+            <button type="button" (click)="cancelEdit()"
+              class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2">Cancel</button>
+            <button type="submit"
+              class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
   </div>
 </section>

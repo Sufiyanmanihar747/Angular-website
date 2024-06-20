@@ -80,22 +80,12 @@ export class DbService {
     }
   }
 
-  async editSnippet(snippetId:string){
-    const docRef = doc(this.db, "snippets", snippetId);
-    const snippet = await getDoc(docRef);
-    console.log(snippet)
-
-    if (snippet.exists()) {
-      console.log("Document data:", snippet.data());
-      return snippet.data()
-    } else {
-      console.log("No such document!");
-      return {
-        id: 1,
-        title: "not found",
-        code: "not found"
-      }
-    }
+  async updateSnippet(snippet: { id: string, title: string, code: string }) {
+    const snippetRef = doc(this.db, 'snippets', snippet.id);
+    await updateDoc(snippetRef, {
+      title: snippet.title,
+      code: snippet.code
+    });
   }
 
 }
