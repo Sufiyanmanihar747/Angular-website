@@ -3,6 +3,7 @@ import { DbService } from '../../services/db.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ShimmerComponent } from "../shimmer/shimmer.component";
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
     selector: 'app-home',
@@ -13,7 +14,7 @@ import { ShimmerComponent } from "../shimmer/shimmer.component";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private dbService: DbService) { }
+  constructor(private dbService: DbService, private toast:HotToastService) { }
 
   items: any[] = []
   loading = true
@@ -22,5 +23,10 @@ export class HomeComponent implements OnInit {
       this.loading = false;
       this.items = data
     });
+  }
+
+  copyCode(code: string) {
+    navigator.clipboard.writeText(code)
+    this.toast.success("Copied to clipboard!")
   }
 }

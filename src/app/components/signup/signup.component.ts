@@ -3,6 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ToastComponent } from '../toast/toast.component';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-signup',
@@ -12,25 +13,22 @@ import { ToastComponent } from '../toast/toast.component';
   styleUrl: './signup.component.css'
 })
 export class SignupComponent {
-
-  @ViewChild(ToastComponent) toast!: ToastComponent;
-  constructor(private authServices: AuthService, private router: Router) { }
+  constructor(private authServices: AuthService, private router: Router, private toast:HotToastService) { }
 
   // Template driven form 
   register(regForm: NgForm) {
-    // this.authServices.registerUser(regForm.value.email, regForm.value.password)
     if (regForm.invalid) {
-      this.toast.showToast("Please enter valid email and password!", "bg-red-500");
+      this.toast.info("Please enter valid email and password!");
     }
     else {
       this.authServices.registerUser(regForm.value.email!, regForm.value.password!).then((success) => {
         if (success) {
-          this.toast.showToast("You are Sign in!");
+          this.toast.success("You are Sign in!");
           this.router.navigate(['/'])
         }
       })
         .catch(() => {
-          this.toast.showToast("An unexpected error occurred. Please try again!", "bg-red-500");
+          this.toast.error("An unexpected error occurred. Please try again!");
         });
     }
 

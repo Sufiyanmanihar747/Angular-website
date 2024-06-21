@@ -1,19 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DbService } from '../../services/db.service';
 import { Snippet } from '../../../models/Snippet';
-import { ToastComponent } from '../toast/toast.component';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-code-bin',
   standalone: true,
   templateUrl: './code-bin.component.html',
   styleUrl: './code-bin.component.css',
-  imports: [ReactiveFormsModule, ToastComponent]
+  imports: [ReactiveFormsModule]
 })
 export class CodeBinComponent {
-  constructor(private dbService: DbService) { }
-  @ViewChild(ToastComponent) toast!: ToastComponent;
+  constructor(private dbService: DbService, private toast:HotToastService) { }
 
   // Reactive driven form 
   title = new FormControl("", [
@@ -32,11 +31,11 @@ export class CodeBinComponent {
   save() {
     if (this.binForm.valid) {
       this.dbService.createSnippet(this.binForm.value as Snippet);
-      this.toast.showToast('Your Snippet added successfully!');
+      this.toast.success('Your Snippet added successfully!');
       this.binForm.reset();
     }
     else {
-      this.toast.showToast('Title and snippet required!', "bg-red-500");
+      this.toast.info('Title and snippet required!');
     }
   }
 }

@@ -2,19 +2,17 @@ import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { ToastComponent } from '../toast/toast.component';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule, ToastComponent],
+  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  @ViewChild(ToastComponent) toast!: ToastComponent;
-
-  constructor(private authServices: AuthService) { }
+  constructor(private authServices: AuthService, private toast:HotToastService,private router: Router) { }
 
   // Reactive driven form 
   email = new FormControl("", [
@@ -35,17 +33,18 @@ export class LoginComponent {
   login() {
     // this.authServices.loginUser(this.loginForm.value.email!, this.loginForm.value.password!)
     if (this.loginForm.invalid) {
-      this.toast.showToast("Please enter valid email and password!", "bg-red-500");
+      this.toast.info("Please enter valid email and password!");
     } else {
       this.authServices.loginUser(this.loginForm.value.email!, this.loginForm.value.password!).then((success) => {
         if (success) {
-          this.toast.showToast("Welcome Back!");
+          this.router.navigate(['/mysnippet'])
+          this.toast.success("Welcome Back!");
         } else {
-          this.toast.showToast("Email or Password Wrong!", "bg-red-500");
+          this.toast.error("Email or Password Wrong!");
         }
       })
         .catch(() => {
-          this.toast.showToast("An unexpected error occurred. Please try again!", "bg-red-500");
+          this.toast.error("An unexpected error occurred. Please try again!");
         });
     }
   }

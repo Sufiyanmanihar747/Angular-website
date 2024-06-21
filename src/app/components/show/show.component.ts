@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DbService } from '../../services/db.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-show',
@@ -8,9 +9,18 @@ import { DbService } from '../../services/db.service';
   templateUrl: './show.component.html',
   styleUrl: './show.component.css'
 })
-export class ShowComponent {
-  constructor(private dbServices: DbService) { }
-  id = "WxgWoR41pneGg3nuSAB3hvaHVn33"
-  data = this.dbServices.getSnippetById(this.id)
-  
+export class ShowComponent implements OnInit{
+
+  snippetId!: string;
+  snippet: any;
+
+  constructor(private dbServices: DbService, private route: ActivatedRoute,
+  ) { }
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id')!;
+    this.dbServices.getSnippetById(id).then((data:any)=>{
+      console.log(data)
+    })
+  }
 }

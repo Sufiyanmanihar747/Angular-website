@@ -53,7 +53,6 @@ export class AuthService {
     return signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        this.router.navigate(['/mysnippet'])
         return true;
       })
       .catch((error) => {

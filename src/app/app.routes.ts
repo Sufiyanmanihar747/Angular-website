@@ -6,6 +6,7 @@ import { CodeBinComponent } from './components/code-bin/code-bin.component';
 import { authGuard } from './auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { MysnippetComponent } from './components/mysnippet/mysnippet.component';
+import { ShowComponent } from './components/show/show.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,7 +14,7 @@ export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'create', component: CodeBinComponent, canActivate: [authGuard] },
   { path: 'about', loadComponent: () => import('./components/about/about.component').then(mod => mod.AboutComponent) },
-  // { path: 'snippet', component: ShowComponent },
+  { path: 'snippet/:id', component: ShowComponent },
   { path: 'mysnippet', component: MysnippetComponent, canActivate: [authGuard] },
   { path: '**', component: NotFoundComponent }
 ]; 

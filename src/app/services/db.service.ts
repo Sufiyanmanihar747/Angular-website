@@ -19,7 +19,7 @@ export class DbService {
   async createSnippet(snippet: { title: string, code: string }) {
     try {
       const docRef = await addDoc(collection(this.db, "snippets"), { ...snippet, by: this.authServices.getUid() });
-      console.log("Document written with ID: ", docRef.id);
+      // console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
       alert("error while creating")
@@ -54,18 +54,11 @@ export class DbService {
   async getSnippetById(docId: string) {
     const docRef = doc(this.db, "snippets", docId);
     const docSnap = await getDoc(docRef);
-    console.log(docSnap)
 
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
       return docSnap.data()
     } else {
-      console.log("No such document!");
-      return {
-        id: 1,
-        title: "not found",
-        code: "not found"
-      }
+      return false;
     }
 
   }

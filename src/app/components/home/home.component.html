@@ -15,12 +15,27 @@
       <app-shimmer></app-shimmer>
     </div>
     <div *ngIf="!loading && items.length === 0" class="text-center p-4">No snippets found!</div>
-    <div class="grid grid-cols-2 md:grid-cols-auto lg:grid-cols-auto gap-4 ">
+    <div class="grid sm:grid-cols-1 md:grid-cols-auto lg:grid-cols-2 gap-4 ">
       @for (item of items; track item.id) {
       <div class="grid-flow-row-dense p-4 border rounded shadow code-container">
         <a [routerLink]="['snippet',item.id]">
           <h3 class="text-lg font-bold mb-2">{{ item.title }}</h3>
         </a>
+        <div dir="rtl">
+          <div class="relative h-8" title="Copy to Clipboard">
+            <button (click)="copyCode(item.code)"
+              class="hover:-translate-y-1 transform transition duration-200 absolute h-10 top-0 start-0">
+              <span id="default-icon" class="inline-flex items-center">
+                <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                  viewBox="0 0 18 20">
+                  <path
+                    d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                </svg>
+                <span class="mr-2 text-xs font-semibold">Copy</span>
+              </span>
+            </button>
+          </div>
+        </div>
         <pre class="bg-gray-100 p-2 rounded code-container">{{ item.code }}</pre>
       </div>
       }

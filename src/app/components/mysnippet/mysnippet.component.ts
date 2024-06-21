@@ -1,31 +1,37 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DbService } from '../../services/db.service';
-import { ToastComponent } from '../toast/toast.component';
 import { CommonModule } from '@angular/common';
 import { ShimmerComponent } from "../shimmer/shimmer.component";
 import { FormsModule } from '@angular/forms';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-mysnippet',
   standalone: true,
   templateUrl: './mysnippet.component.html',
   styleUrls: ['./mysnippet.component.css'],
-  imports: [CommonModule, ToastComponent, ShimmerComponent, FormsModule]
+  imports: [CommonModule, ShimmerComponent, FormsModule]
 })
 
 export class MysnippetComponent implements OnInit {
-  @ViewChild(ToastComponent) toast!: ToastComponent;
   loading = true;
   editingSnippet: boolean = false;
   currentSnippet: any = null;
   formError: string = '';
 
-  constructor(private dbService: DbService) { }
+  constructor(private dbService: DbService, private toast: HotToastService) { }
 
   items: any[] = [];
 
   ngOnInit() {
     this.fetchUserSnippets();
+    // this.toast.show('Hello World!');
+    // this.toast.loading('Lazyyy...');
+    // this.toast.success('Yeah!!');
+    // this.toast.warning('Boo!');
+    // this.toast.error('Oh no!');
+    // this.toast.info('Something...');
+
   }
 
   async fetchUserSnippets() {
@@ -40,13 +46,14 @@ export class MysnippetComponent implements OnInit {
       }
     } catch (error) {
       console.error('Error fetching data', error);
+      this.toast.error('Something went wrong!!');
     }
 
   }
   async deleteSnippet(id: string) {
     console.log("this is delete snippet")
     await this.dbService.deleteSnippet(id);
-    this.toast.showToast('Snippet deleted successfully!','bg-red-500');
+    this.toast.success('Snippet deleted successfully!');
     await this.fetchUserSnippets();
   }
 
@@ -59,17 +66,19 @@ export class MysnippetComponent implements OnInit {
 
   async updateSnippet() {
     if (!this.currentSnippet.title || !this.currentSnippet.code) {
-      this.formError = 'Title and Code are required.';
+      // this.formError = 'Title and Code are required.';
+      this.toast.info('title and code are required');
       return;
     }
     try {
       await this.dbService.updateSnippet(this.currentSnippet);
       this.items = this.items.map(item => item.id === this.currentSnippet.id ? this.currentSnippet : item);
       this.editingSnippet = false;
-      this.toast.showToast('Snippet updated successfully');
+      this.toast.success('Snippet updated successfully');
+
     } catch (error) {
       console.error('Error updating snippet', error);
-      this.toast.showToast('Failed to update snippet');
+      this.toast.error('Failed to update snippet');
     }
   }
 
@@ -79,4 +88,8 @@ export class MysnippetComponent implements OnInit {
     this.formError = '';
   }
 
+  copyCode(code: string) {
+    navigator.clipboard.writeText(code)
+    this.toast.success("Copied to clipboard!")
+  }
 }
