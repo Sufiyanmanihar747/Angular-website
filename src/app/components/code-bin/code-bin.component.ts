@@ -12,7 +12,7 @@ import { HotToastService } from '@ngneat/hot-toast';
   imports: [ReactiveFormsModule]
 })
 export class CodeBinComponent {
-  constructor(private dbService: DbService, private toast:HotToastService) { }
+  constructor(private dbService: DbService, private toast: HotToastService) { }
 
   // Reactive driven form 
   title = new FormControl("", [
@@ -23,14 +23,14 @@ export class CodeBinComponent {
     Validators.required,
   ])
 
-  accessible = new FormControl("public",[
+  accessible = new FormControl("public", [
     Validators.required,
   ])
 
   binForm = new FormGroup({
     title: this.title,
     code: this.code,
-    accessible:this.accessible
+    accessible: this.accessible
   })
 
   save() {

@@ -12,7 +12,7 @@ import { HotToastService } from '@ngneat/hot-toast';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private authServices: AuthService, private toast:HotToastService,private router: Router) { }
+  constructor(private authServices: AuthService, private toast: HotToastService, private router: Router) { }
 
   // Reactive driven form 
   email = new FormControl("", [

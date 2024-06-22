@@ -66,11 +66,13 @@ export class MysnippetComponent implements OnInit {
 
   async updateSnippet() {
     if (!this.currentSnippet.title || !this.currentSnippet.code) {
-      // this.formError = 'Title and Code are required.';
       this.toast.info('title and code are required');
       return;
     }
     try {
+      this.toast.loading("Loading...", {
+        duration: 1000,
+      })
       await this.dbService.updateSnippet(this.currentSnippet);
       this.items = this.items.map(item => item.id === this.currentSnippet.id ? this.currentSnippet : item);
       this.editingSnippet = false;

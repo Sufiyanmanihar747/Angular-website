@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 @Injectable({
@@ -8,17 +9,15 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWith
 export class AuthService {
   private uid?: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private toast: HotToastService) {
     const auth = getAuth();
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.uid = user.uid;
-        console.log(this.uid);
-        console.log("user logged in with ", user.email)
       } else {
         this.uid = undefined;
-        console.log("user is logged out")
+        toast.success("You are Logged out!")
       }
     });
   }
@@ -31,36 +30,33 @@ export class AuthService {
     return this.uid;
   }
 
-  registerUser(email: string, password: string) {
+  async registerUser(email: string, password: string) {
 
     const auth = getAuth();
-    return createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user)
-        return true;
+    try {
+      this.toast.loading("Loading...", {
+        duration: 1000,
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage)
-        return false
-      });
+      await createUserWithEmailAndPassword(auth, email, password);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 
-  loginUser(email: string, password: string) {
+  async loginUser(email: string, password: string) {
     const auth = getAuth();
-    return signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        return true;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage)
-        return false;
+    try {
+      this.toast.loading("Loading...", {
+        duration: 1000,
       });
+      await signInWithEmailAndPassword(auth, email, password);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 
   logoutUser() {
