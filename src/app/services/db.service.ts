@@ -18,8 +18,7 @@ export class DbService {
 
   async createSnippet(snippet: { title: string, code: string }) {
     try {
-      const docRef = await addDoc(collection(this.db, "snippets"), { ...snippet, by: this.authServices.getUid() });
-      // console.log("Document written with ID: ", docRef.id);
+      await addDoc(collection(this.db, "snippets"), { ...snippet, by: this.authServices.getUid() });
     } catch (e) {
       console.error("Error adding document: ", e);
       alert("error while creating")

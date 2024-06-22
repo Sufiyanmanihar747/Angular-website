@@ -6,7 +6,7 @@
       word-wrap: break-word;
       word-break: break-all;
       overflow: auto;
-      resize: horizontal;
+      resize: both;
       max-width: 100%;
     }
   </style>
@@ -15,8 +15,11 @@
       <app-shimmer></app-shimmer>
     </div>
     <div *ngIf="!loading && items.length === 0" class="text-center p-4">No snippets found!</div>
+    <!-- <div *ngIf="item.accessible === 'private'">
+    </div> -->
     <div class="grid sm:grid-cols-1 md:grid-cols-auto lg:grid-cols-2 gap-4 ">
       @for (item of items; track item.id) {
+      @if (item.accessible == 'public'){
       <div class="grid-flow-row-dense p-4 border rounded shadow code-container">
         <a [routerLink]="['snippet',item.id]">
           <h3 class="text-lg font-bold mb-2">{{ item.title }}</h3>
@@ -38,6 +41,7 @@
         </div>
         <pre class="bg-gray-100 p-2 rounded code-container">{{ item.code }}</pre>
       </div>
+      }
       }
     </div>
   </div>

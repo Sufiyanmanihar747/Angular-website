@@ -23,16 +23,21 @@ export class CodeBinComponent {
     Validators.required,
   ])
 
+  accessible = new FormControl("public",[
+    Validators.required,
+  ])
+
   binForm = new FormGroup({
     title: this.title,
-    code: this.code
+    code: this.code,
+    accessible:this.accessible
   })
 
   save() {
     if (this.binForm.valid) {
       this.dbService.createSnippet(this.binForm.value as Snippet);
       this.toast.success('Your Snippet added successfully!');
-      this.binForm.reset();
+      this.binForm.reset({ accessible: 'public' });
     }
     else {
       this.toast.info('Title and snippet required!');

@@ -65,13 +65,12 @@
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Open user menu</span>
               <img class="h-8 w-8 rounded-full"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt="">
+                src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" alt="">
             </button>
             }@else{
-            <a routerLink="/login" routerLinkActive="active"
+            <a routerLink="/login" routerLinkActive="bg-gray-900 text-white"
               class="rounded-md px-3 py-2 text-white text-sm font-medium  hover:bg-gray-700 hover:text-white bg-gray-900">Login</a>
-            <a routerLink="/signup" routerLinkActive="active"
+            <a routerLink="/signup" routerLinkActive="bg-gray-900 text-white"
               class="rounded-md px-3 py-2 text-sm font-medium  hover:bg-gray-700 hover:text-white">Sign up</a>
             }
           </div>
@@ -83,7 +82,8 @@
             <a href="#" (click)="isProfileMenuOpen = false" class="block px-4 py-2 text-sm text-gray-700"
               role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
             <a href="#" (click)="isProfileMenuOpen = false" (click)="authServices.logoutUser()"
-              class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign
+              class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+              id="user-menu-item-2 hover:bg-red-100">Sign
               out</a>
           </div>
         </div>
@@ -94,13 +94,14 @@
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class="sm:hidden" id="mobile-menu" [ngClass]="{'block': isMenuOpen, 'hidden': !isMenuOpen}">
     <div class="space-y-1 px-2 pb-3 pt-2">
-      <a routerLink="/" (click)="isMenuOpen = false" routerLinkActive="active"
+      <a routerLink="/" (click)="isMenuOpen = false" routerLinkActive="bg-gray-900 text-white"
+        [routerLinkActiveOptions]="{ exact: true }"
         class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Home</a>
-      <a routerLink="/create" (click)="isMenuOpen = false" routerLinkActive="active"
+      <a routerLink="/create" (click)="isMenuOpen = false" routerLinkActive="bg-gray-900 text-white"
         class="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-700 hover:text-white">Add Snippet</a>
-      <a routerLink="/mysnippet" (click)="isMenuOpen = false" routerLinkActive="active"
+      <a routerLink="/mysnippet" (click)="isMenuOpen = false" routerLinkActive="bg-gray-900 text-white"
         class="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-700 hover:text-white">My Snippets</a>
-      <a routerLink="/about" (click)="isMenuOpen = false" routerLinkActive="active"
+      <a routerLink="/about" (click)="isMenuOpen = false" routerLinkActive="bg-gray-900 text-white"
         class="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-700 hover:text-white">About</a>
     </div>
   </div>
