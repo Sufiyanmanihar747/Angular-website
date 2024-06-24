@@ -14,7 +14,9 @@
     <div *ngIf="loading" class="text-center p-4">
       <app-shimmer></app-shimmer>
     </div>
-    <div *ngIf="!loading && items.length === 0" class="text-center p-4">No snippets found!</div>
+    <div *ngIf="!loading && items.length === 0" class="text-center flex flex-col items-center p-4"><img
+        src="	https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-6219421-5102419.png?f=webp" alt="">something went
+      wrong! please REFRESH the page...</div>
     <!-- <div *ngIf="item.accessible === 'private'">
     </div> -->
     <div class="grid sm:grid-cols-1 md:grid-cols-auto lg:grid-cols-2 gap-4 ">

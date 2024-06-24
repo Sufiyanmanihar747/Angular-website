@@ -14,7 +14,10 @@
     <div *ngIf="loading" class="text-center p-4">
       <app-shimmer></app-shimmer>
     </div>
-    <div *ngIf="!loading && items.length === 0" class="text-center p-4">No snippets found!</div>
+    <div *ngIf="!loading && items.length === 0" class="text-center flex flex-col items-center p-4"><img
+        src="	https://cdn3d.iconscout.com/3d/premium/thumb/empty-box-6219421-5102419.png?f=webp" alt="">
+      No snippet found from your side
+    </div>
 
     <div class="grid sm:grid-cols-1 md:grid-cols-auto lg:grid-cols-2 gap-4 ">
       @for (item of items; track item.id) {
@@ -31,7 +34,8 @@
         </div>
         <div dir="rtl mt-3">
           <div class="relative h-8">
-            <button (click)="copyCode(item.code)" class="hover:-translate-y-1 transform transition duration-200 absolute h-10 top-0 start-0">
+            <button (click)="copyCode(item.code)"
+              class="hover:-translate-y-1 transform transition duration-200 absolute h-10 top-0 start-0">
               <span id="default-icon" class="inline-flex items-center">
                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 18 20">

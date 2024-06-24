@@ -51,7 +51,9 @@ export class MysnippetComponent implements OnInit {
 
   }
   async deleteSnippet(id: string) {
-    console.log("this is delete snippet")
+    this.toast.loading("Loading...", {
+      duration: 500,
+    })
     await this.dbService.deleteSnippet(id);
     this.toast.success('Snippet deleted successfully!');
     await this.fetchUserSnippets();
