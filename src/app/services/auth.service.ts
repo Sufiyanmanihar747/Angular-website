@@ -17,7 +17,6 @@ export class AuthService {
         this.uid = user.uid;
       } else {
         this.uid = undefined;
-        toast.success("You are Logged out!")
       }
     });
   }
